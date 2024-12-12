@@ -1,0 +1,138 @@
+.form-table-container {
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 215px;
+  overflow-y: auto;
+}
+
+.table-row, .table-field {
+  display: flex;
+  width: 100%;
+  margin-bottom: 8px; 
+  position: relative; 
+}
+
+.table-field {
+  display: flex;
+  width: 100%;
+  margin-bottom: 32px;
+  position: relative;
+}
+.table-cell {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-left: 25px;
+  position: relative;
+}
+
+.table-header,
+.table-cell {
+  display: flex;
+  align-items: center;
+  flex: 1; 
+}
+
+.table-header {
+  font-weight: bold;
+  background-color: transparent; 
+  color: inherit; 
+}
+
+.table-icon {
+  position: absolute;
+  left: 0;
+  top: 67%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #666;
+  z-index: 1;
+}
+
+.table-cell input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  box-sizing: border-box;
+}
+
+.table-cell input[type="text"]:focus {
+  outline: none;
+  border-color: #888;
+}
+
+
+
+.table-cell-label{
+  margin-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+  .table-row:first-child {
+    display: none;
+  }
+
+  .table-row {
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  .table-header,
+  .table-cell {
+    flex-direction: column;
+    text-align: left;
+    padding-left: 10px;
+  }
+
+  .table-header {
+    font-weight: normal;
+    padding-left: 10px;
+    padding-bottom: 5px;
+  }
+
+  /* .table-cell {
+    padding-left: 10px;
+    margin-bottom: 10px; 
+  } */
+
+  .table-cell {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding-left: 25px;
+    position: relative;
+    width: auto; /* Permite que el ancho se ajuste al contenido */
+    min-width: fit-content; /* Asegura que el contenido no se vea recortado o forzado */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  }
+  
+  .table-cell input[type="text"] {
+    max-width: 90%; 
+    padding: 8px;
+  }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 601px) {
+  .table-cell {
+    display: block; 
+  }
+  /* .table-cell-label{
+    display: none;
+  } */
+}

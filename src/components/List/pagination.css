@@ -1,0 +1,81 @@
+/* Contenedor principal de la paginación */
+.react-paginate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  /* Estilo para cada botón de la paginación */
+  .react-paginate li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0; /* Gris claro */
+    color: #333; /* Gris oscuro para el texto */
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  /* Hover y enfoque para mejorar la accesibilidad */
+  .react-paginate li:hover,
+  .react-paginate li:focus {
+    background-color: #d9d9d9; /* Gris un poco más oscuro */
+    transform: scale(1.1); /* Efecto de zoom */
+  }
+  
+  /* Página activa */
+  .react-paginate .selected {
+    background-color: #0d6efd; /* Verde para la página activa */
+    color: #fff; /* Texto blanco */
+    border: 2px solid #0d6efd; /* Borde verde oscuro */
+  }
+  
+  /* Deshabilitar botones (como "Anterior" o "Siguiente" si no hay más páginas) */
+  .react-paginate .disabled {
+    /* background-color: #e0e0e0; */
+    color: #a0a0a0;
+    cursor: not-allowed;
+  }
+  
+  /* Estilo para los botones "Anterior" y "Siguiente" */
+  .react-paginate .previous,
+  .react-paginate .next {
+    /* background-color: #e0e0e0; */
+    color: #333;
+    font-weight: bold;
+    border-radius: 8px; /* Opcional, puedes redondearlo */
+    padding: 0 10px;
+  }
+  
+  /* Hover para "Anterior" y "Siguiente" */
+  .react-paginate .previous:hover,
+  .react-paginate .next:hover {
+    background-color: #d0d0d0;
+  }
+  
+  .react-paginate li a {
+    position: absolute; /* Hace que el enlace ocupe todo el contenedor */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    color: inherit; /* Hereda el color del contenedor */
+  }
+  
+  .react-paginate li:hover {
+    transform: scale(1.1);
+  }
