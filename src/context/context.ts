@@ -5,7 +5,8 @@ import { Clients } from "../interfaces";
 export type ClientsContextProps = {
     clientsState:ClientsState;
     showClientForm: () => void;
-    showClientAddresses: () => void;
+    showClientAddresses: (id:string) => void;
+    setClientToUpdate: (client: Clients) => void;
     addProcedure: (client: Clients) => void;
     setClients: (client: Clients[]) => void;
 }

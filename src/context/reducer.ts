@@ -3,12 +3,12 @@ import { ClientsState } from "../interfaces";
 
 type  ClientsAction = { type: 'addProcedure', payload: Clients} |
                       { type: 'setClients', payload: Clients[]} |
-                      { type: 'toggleClientForm'} |
-                      { type: 'toggleClientAddresses'}
+                      { type: 'showClientForm'} |
+                      { type: 'setClientForm', payload: Clients} |
+                      { type: 'toggleClientAddresses', payload:string}
 
 export  const ClientsReducer = (state:ClientsState, action:ClientsAction) =>{
-    console.log(action.type);
-    
+       
     switch (action.type) {
         case "addProcedure":
             return {
@@ -22,18 +22,23 @@ export  const ClientsReducer = (state:ClientsState, action:ClientsAction) =>{
                 clients: [...action.payload]
             }
 
-        case "toggleClientForm":
-            console.log(state.isDialogClientFormOpen);
-            
+        case "showClientForm":
             return {
                 ...state,
-                isDialogClientFormOpen: !state.isDialogClientFormOpen
+                isDialogClientFormOpen: !state.isDialogClientFormOpen,
+            }
+
+        case "setClientForm":
+            return {
+                ...state,
+                clientToUpdate: action.payload
             }
             
-        case "toggleClientAddresses":            
+        case "toggleClientAddresses":    
+            const id = state.clientIdSelected !== action.payload ? action.payload : '';        
             return {
                 ...state,
-                isDialogClientAddressesOpen: !state.isDialogClientAddressesOpen
+                clientIdSelected: id
             }
 
         default:

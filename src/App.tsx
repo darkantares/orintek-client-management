@@ -5,7 +5,7 @@ import { ContainerTitle, Title } from "./components/Title/Title.styled";
 
 import { EmptyClients } from "./components/EmptyClients";
 import { Container } from "./components/Global.styled";
-import { DialogComponent } from "./components/Dialog/DialogClientForm";
+import { DialogClientForm } from "./components/Dialog/DialogClientForm";
 import { ListComponent } from "./components/List/List";
 import { GlobalContext } from './context/context';
 
@@ -26,14 +26,12 @@ function App() {
           ...item,
           addresses: item.addresses.map((address:any) => ({
               ...address,
-              // type: address.type === "commertial" ? "commercial" : address.type,
               created_at: new Date(address.created_at),
               updated_at: new Date(address.updated_at),
           }))
         }));
 
         setClients(validClients);
-        console.log(clientsData);
         
       } catch (err) {
         console.log('error fetching todos');
@@ -42,7 +40,7 @@ function App() {
 
   return (
     <>
-      <DialogComponent />
+      <DialogClientForm />
 
       <Container>
         <ContainerTitle>
@@ -50,7 +48,7 @@ function App() {
         </ContainerTitle>
         
         {
-          clients.length === 0 ? <EmptyClients /> : <ListComponent clients={clients}/>
+          clients.length === 0 ? <EmptyClients /> : <ListComponent />
         }
         
       </Container>

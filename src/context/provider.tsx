@@ -7,7 +7,8 @@ import { Clients } from "../interfaces";
 const INITIAL_STATE:ClientsState = {
     clients: [],
     isDialogClientFormOpen: false,
-    isDialogClientAddressesOpen: false
+    clientIdSelected: '',
+    clientToUpdate: null
 }
 
 interface Props {
@@ -18,11 +19,15 @@ export const GlobalProvider = ({ children }: Props) => {
     const [clientsState, dispatch] = useReducer(ClientsReducer, INITIAL_STATE)
 
     const showClientForm = () => {        
-        dispatch({type:'toggleClientForm'})
+        dispatch({type:'showClientForm'})
     }
 
-    const showClientAddresses = () => {        
-        dispatch({type:'toggleClientAddresses'})
+    const setClientToUpdate = (client: Clients) => {        
+        dispatch({type:'setClientForm', payload:client})
+    }
+
+    const showClientAddresses = (id:string) => {        
+        dispatch({type:'toggleClientAddresses', payload: id})
     }
 
     const addProcedure = (client:Clients) =>{
@@ -38,6 +43,7 @@ export const GlobalProvider = ({ children }: Props) => {
             clientsState,
             showClientForm,
             showClientAddresses,
+            setClientToUpdate,
             addProcedure,
             setClients
         }}>

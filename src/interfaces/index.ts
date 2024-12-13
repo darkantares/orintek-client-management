@@ -1,7 +1,8 @@
 export interface ClientsState {
     clients:Clients[];
+    clientToUpdate: Clients | null;
     isDialogClientFormOpen:boolean;
-    isDialogClientAddressesOpen:boolean;
+    clientIdSelected:string;
 }
 
 export interface Clients {
@@ -10,7 +11,7 @@ export interface Clients {
   lastName: string;
   email: string;
   phone_number: string;
-  addresses?: Address[];
+  addresses: Address[];
   created_at?: Date;
   updated_at?: Date;
 }
@@ -38,6 +39,7 @@ export type DeleteClientsInput = {
 };
 
 export interface Address {
+  id:string;
   street_address: string;
   type?:"residential" |"commercial" |"other";
   city: string;

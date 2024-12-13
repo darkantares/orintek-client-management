@@ -1,0 +1,20 @@
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    padding: 0 10px;
+    opacity: 0;
+  }
+  
+  .accordion-content.expanded {
+    max-height: 200px; /* Ajusta según el contenido */
+    padding: 10px 10px;
+    opacity: 1;
+  }
+  
+  .accordion-content.collapsed {
+    max-height: 0;
+    padding: 0 10px;
+    opacity: 0;
+  }
+  

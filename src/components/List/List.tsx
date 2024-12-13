@@ -1,39 +1,47 @@
 import { useContext, useState } from "react";
+import ReactPaginate from "react-paginate";
+import Swal from 'sweetalert2'
 import { GlobalContext } from "../../context/context";
 import { Button, IconButton } from "../Button/ButtonComponent.styled";
 import { ListItemWrapper, ListLabel, ListTitle, ListWrapper } from "./List.styled";
 import { Clients } from "../../interfaces";
 
-import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import ReactPaginate from "react-paginate";
+import { AccordionAddress } from "../AccordionAddress";
 
 import './pagination.css';
 
 const MySwal = withReactContent(Swal);
 
-
 const ClientList = ({currentItems}:{currentItems:Clients[]}) =>{
-  const { showClientForm, showClientAddresses } = useContext(GlobalContext);
-  console.log(currentItems);
+  const { showClientForm, showClientAddresses, setClientToUpdate } = useContext(GlobalContext);
+  
+  const handleClientForm = (client:Clients) => {
+    showClientForm()
+    setClientToUpdate(client)
+  }
+
+  const toggleAccordion = (id:string) => {
+    showClientAddresses(id)
+  }
 
   const removeClient = (id:string) =>{
-    MySwal.fire({
-      title: "Seguro que deseas eliminar este registro?",
-      showDenyButton: true,
-      denyButtonText: `SI`,
-      confirmButtonText: "No"
-    }).then((result) => {
-      if (result.isDenied) {
-        Swal.fire("Registro eliminado correctamente!", "", "success");
-      }
-    });
-  }
+  MySwal.fire({
+    title: "Seguro que deseas eliminar este registro?",
+    showDenyButton: true,
+    denyButtonText: `SI`,
+    confirmButtonText: "No"
+  }).then((result) => {
+    if (result.isDenied) {
+      Swal.fire("Registro eliminado correctamente!", "", "success");
+    }
+  })}
   return (
     <>
       {currentItems &&
         currentItems.map((client) => (
           <ListWrapper key={client.id}>
+            <div style={{display: 'flex', justifyContent: 'space-around', width: '100%'}}>
               <ListItemWrapper>
                 <ListTitle>Nombre</ListTitle>
                 <ListLabel>{client.firstName}</ListLabel>
@@ -52,24 +60,31 @@ const ClientList = ({currentItems}:{currentItems:Clients[]}) =>{
               </ListItemWrapper>
   
               <div style={{display: 'flex', flexDirection: 'row', gap: '5px'}}>
-                <Button onClick={()=>showClientForm()} style={{background: '#ffc107'}}>
+                <Button onClick={()=>handleClientForm(client)} style={{background: '#ffc107'}}>
                   <IconButton src="./imgs/update.svg" style={{width: '25px'}}/>
                 </Button>
                 <Button onClick={()=>removeClient(client.id)} style={{background: '#dc3545'}}>
                   <IconButton src="./imgs/trash.svg" style={{width: '25px'}}/>
                 </Button>
-                <Button onClick={showClientAddresses} style={{background: '#0d6efd'}}>
+                <Button onClick={() => toggleAccordion(client.id)} style={{background: '#0d6efd'}}>
                   <IconButton src="./imgs/address-book.svg" style={{width: '25px'}}/>
                 </Button>
               </div>
+            </div>
+
+            <AccordionAddress cliendId={client.id} addresses={client.addresses}/>
+            
           </ListWrapper>
         ))}
     </>
   );
 }
 
-export const ListComponent = ({ clients }: { clients: Clients[] }) => {
+export const ListComponent = () => {
 
+  const {clientsState, setClients} = useContext(GlobalContext);
+  const {clients} = clientsState;
+  
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + 5;

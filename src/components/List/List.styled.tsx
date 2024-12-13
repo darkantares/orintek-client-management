@@ -4,11 +4,10 @@ import { colors } from "../../constants/colors";
 
 export const ListWrapper = styled.div(() => ({
     display: 'flex',
-    flexDirection: 'row' as const,
-    justifyContent: 'space-around',
+    flexDirection: 'column' as const,    
     width: '80vw',
     maxWidth: '941px',
-    height: '78px',
+    // height: '78px',
     flexShrink: 0,
     borderRadius: '10px',
     background: colors.white,
@@ -18,7 +17,6 @@ export const ListWrapper = styled.div(() => ({
     gap: '10px', 
     padding: '20px', 
     
-   
     "@media (max-width: 768px)": {
       width: '75vw',
       height: 'auto',
