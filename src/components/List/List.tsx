@@ -1,21 +1,19 @@
 import { useContext, useState } from "react";
 import ReactPaginate from "react-paginate";
-import Swal from 'sweetalert2'
 import { GlobalContext } from "../../context/context";
 import { Button, IconButton } from "../Button/ButtonComponent.styled";
 import { ListItemWrapper, ListLabel, ListTitle, ListWrapper } from "./List.styled";
 import { Clients } from "../../interfaces";
 
-import withReactContent from 'sweetalert2-react-content'
 import { AccordionAddress } from "../AccordionAddress";
 
 import { ConfirmationAlert } from "../alert/ConfirmationAlert";
 
 import './pagination.css';
-
-const MySwal = withReactContent(Swal);
+import useDeleteClient from "../../hooks/useDeleteClient";
 
 const ClientList = ({currentItems}:{currentItems:Clients[]}) =>{
+  const {deleteClient } = useDeleteClient('client');
   const { showClientForm, showClientAddresses, setClientToUpdate } = useContext(GlobalContext);
   
   const handleClientForm = (client:Clients) => {
@@ -30,6 +28,10 @@ const ClientList = ({currentItems}:{currentItems:Clients[]}) =>{
   const removeClient = (id:string) =>{
     ConfirmationAlert({
       title: "Seguro que deseas eliminar este registro?",
+    }).then(res=>{
+      if (res.isConfirmed) {             
+        deleteClient(id)
+      }
     })
   }
 

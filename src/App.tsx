@@ -7,19 +7,16 @@ import { EmptyClients } from "./components/EmptyClients";
 import { DialogClientForm } from "./components/Dialog/DialogClientForm";
 import { GlobalContext } from './context/context';
 import { ListComponent } from "./components/List/List";
-import useHttpRequest from './hooks/useHttpRequest';
 import { Button, Container } from '@mui/material';
+import useGetClients from './hooks/useGetClients';
 
 function App() {
-  const {globalClients, error, loading, sendRequest } = useHttpRequest('GET', {}, {});
+  // const {globalClients, error, loading, sendRequest } = useHttpRequest('GET', {}, {});
+  const {clients} = useGetClients('client')
   const {setClients, showClientForm} = useContext(GlobalContext);
-
-  useEffect(() => {
-    sendRequest();    
-  }, []);
   
   useEffect(() => {    
-    setClients(globalClients);    
+    setClients(clients);    
   }, []);
 
   return (
@@ -47,7 +44,7 @@ function App() {
         </Container>
         
         {
-          globalClients.length === 0 ? <EmptyClients /> : <ListComponent />
+          clients.length === 0 ? <EmptyClients /> : <ListComponent />
         }
         
       </Container>

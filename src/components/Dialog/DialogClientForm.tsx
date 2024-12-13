@@ -7,8 +7,9 @@ import Grid from '@mui/material/Grid2';
 import './FormTable.css';
 import { Address } from '../../interfaces';
 import { IconButton } from '../Button/ButtonComponent.styled';
-import useHttpRequest from '../../hooks/useHttpRequest';
 import { InfoAlert } from '../alert/InfoAlert';
+import usePostClient from '../../hooks/useCreateClient';
+import useUpdateClient from '../../hooks/useUpdateClient';
 
 const phoneRegex = /^(\+?\d{1,4}[\s\-])?(\(?\d{1,3}\)?[\s\-]?)?(\d{3})[\s\-]?(\d{4})$/;
 const emailRegex = /\S+@\S+\.\S+/;
@@ -26,8 +27,8 @@ export const DialogClientForm = () => {
     const { clientsState, setClients, showClientForm } = useContext(GlobalContext);
     const { isDialogClientFormOpen, clientToUpdate } = clientsState;
 
-    const { globalClients:createdClient, sendRequest:post, error:createError } = useHttpRequest('POST', {}, formData);
-    const { globalClients:updatedCLient, sendRequest:put, error:updateError } = useHttpRequest('PUT', {}, formData);
+    const {postClient,error} = usePostClient('client')
+    const {updateClient} = useUpdateClient('client')
 
     const [errors, setErrors] = useState({
         firstName: '',
@@ -140,23 +141,28 @@ export const DialogClientForm = () => {
 
         if (clientToUpdate) {
             console.log('Actualizando');            
+            console.log(formData);
+            updateClient(clientToUpdate.id, formData).then(() =>{           
+                console.log(error);
+                     
+                if (!error) {
+                    InfoAlert({title:"Cliente actualizado correctamente",icon:"success"})    
+                    setFormData(initial)        
+                    showClientForm();
+                }                
+            })            
         } else {
             console.log('Guardando');
             
-            post().then(() =>{                
-                if (!createError) {
+            postClient(formData).then(() =>{                
+                if (!error) {
                     InfoAlert({title:"Cliente creado correctamente",icon:"success"})    
                     setFormData(initial)        
                     showClientForm();
                 }                
             })
         }
-    };
-
-    useEffect(() => {
-      console.log(createdClient);      
-    }, [])
-    
+    };    
 
     return (
         <DialogComponent isOpen={isDialogClientFormOpen} handleClose={handleClose}>

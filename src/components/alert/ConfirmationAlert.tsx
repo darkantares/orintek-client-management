@@ -11,8 +11,8 @@ export const ConfirmationAlert = ({title}:Props) => {
     MySwal.fire({
         title,
         showDenyButton: true,
-        denyButtonText: `SI`,
-        confirmButtonText: "No"
+        denyButtonText: `No`,
+        confirmButtonText: "Si"
     })
   )
 }
