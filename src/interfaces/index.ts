@@ -39,14 +39,13 @@ export type DeleteClientsInput = {
 };
 
 export interface Address {
-  id:string;
+  id?:string;
   street_address: string;
-  type?:"residential" |"commercial" |"other";
   city: string;
   state: string;
   zip_code: string;
   country: string;
-  created_at: Date;
-  updated_at: Date;
-  is_active:boolean;
+  created_at?: Date;
+  updated_at?: Date;
+  is_active?:boolean;
 }

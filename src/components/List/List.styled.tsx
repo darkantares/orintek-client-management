@@ -6,7 +6,7 @@ export const ListWrapper = styled.div(() => ({
     display: 'flex',
     flexDirection: 'column' as const,    
     width: '80vw',
-    maxWidth: '941px',
+    maxWidth: '940px',
     // height: '78px',
     flexShrink: 0,
     borderRadius: '10px',

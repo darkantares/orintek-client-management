@@ -9,6 +9,8 @@ import { Clients } from "../../interfaces";
 import withReactContent from 'sweetalert2-react-content'
 import { AccordionAddress } from "../AccordionAddress";
 
+import { ConfirmationAlert } from "../alert/ConfirmationAlert";
+
 import './pagination.css';
 
 const MySwal = withReactContent(Swal);
@@ -26,16 +28,11 @@ const ClientList = ({currentItems}:{currentItems:Clients[]}) =>{
   }
 
   const removeClient = (id:string) =>{
-  MySwal.fire({
-    title: "Seguro que deseas eliminar este registro?",
-    showDenyButton: true,
-    denyButtonText: `SI`,
-    confirmButtonText: "No"
-  }).then((result) => {
-    if (result.isDenied) {
-      Swal.fire("Registro eliminado correctamente!", "", "success");
-    }
-  })}
+    ConfirmationAlert({
+      title: "Seguro que deseas eliminar este registro?",
+    })
+  }
+
   return (
     <>
       {currentItems &&

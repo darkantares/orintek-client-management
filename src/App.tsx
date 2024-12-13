@@ -1,54 +1,53 @@
 
 import { useContext, useEffect } from 'react';
 
-import { ContainerTitle, Title } from "./components/Title/Title.styled";
+import { Title } from "./components/Title/Title.styled";
 
 import { EmptyClients } from "./components/EmptyClients";
-import { Container } from "./components/Global.styled";
 import { DialogClientForm } from "./components/Dialog/DialogClientForm";
-import { ListComponent } from "./components/List/List";
 import { GlobalContext } from './context/context';
-
-import clientsData from './clients.json';
+import { ListComponent } from "./components/List/List";
+import useHttpRequest from './hooks/useHttpRequest';
+import { Button, Container } from '@mui/material';
 
 function App() {
-
-  const {clientsState, setClients} = useContext(GlobalContext);
-  const {clients} = clientsState;
+  const {globalClients, error, loading, sendRequest } = useHttpRequest('GET', {}, {});
+  const {setClients, showClientForm} = useContext(GlobalContext);
 
   useEffect(() => {
-    fetchClients();
+    sendRequest();    
   }, []);
-
-  async function fetchClients() {
-      try {        
-        const validClients: any[] = clientsData.data.map(item => ({
-          ...item,
-          addresses: item.addresses.map((address:any) => ({
-              ...address,
-              created_at: new Date(address.created_at),
-              updated_at: new Date(address.updated_at),
-          }))
-        }));
-
-        setClients(validClients);
-        
-      } catch (err) {
-        console.log('error fetching todos');
-      }
-  }
+  
+  useEffect(() => {    
+    setClients(globalClients);    
+  }, []);
 
   return (
     <>
       <DialogClientForm />
 
-      <Container>
-        <ContainerTitle>
+      <Container
+        sx={{
+          display: 'flex',
+          flexDirection: 'column', // Opcional: organiza elementos en columna si tienes más de uno.
+          alignItems: 'center', // Centra horizontalmente.
+          height: '100vh', // Asegúrate de que el contenedor ocupe toda la altura de la pantalla.
+        }}
+      >
+        <Container sx={{ marginTop: '50px', display: 'flex', justifyContent: 'space-between', maxWidth: '940px', alignItems: 'center' }}>
           <Title>Clientes</Title>
-        </ContainerTitle>
+          <Button
+              type="button"
+              variant="outlined"
+              sx={{ mt: 2 }}
+              onClick={showClientForm}
+          >
+              + Agregar Cliente
+          </Button>
+        </Container>
         
         {
-          clients.length === 0 ? <EmptyClients /> : <ListComponent />
+          globalClients.length === 0 ? <EmptyClients /> : <ListComponent />
         }
         
       </Container>

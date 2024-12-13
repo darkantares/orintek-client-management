@@ -16,6 +16,7 @@ export const DialogComponent = ({ isOpen, handleClose, children }: Props) => {
         open={isOpen}
         onClose={handleClose}
         component="div"
+        sx={{ '& .MuiDialog-paper': { width: '80%', maxWidth: 'none' } }}
       >       
         <DialogContent>
             {children}
