@@ -11,6 +11,7 @@ import { ConfirmationAlert } from "../alert/ConfirmationAlert";
 
 import './pagination.css';
 import useDeleteClient from "../../hooks/useDeleteClient";
+import { Box } from "@mui/material";
 
 const ClientList = ({currentItems}:{currentItems:Clients[]}) =>{
   const {deleteClient } = useDeleteClient('client');
@@ -40,7 +41,16 @@ const ClientList = ({currentItems}:{currentItems:Clients[]}) =>{
       {currentItems &&
         currentItems.map((client) => (
           <ListWrapper key={client.id}>
-            <div style={{display: 'flex', justifyContent: 'space-around', width: '100%'}}>
+            <Box 
+                display="flex" 
+                justifyContent="space-around" 
+                width="100%"
+                flexWrap="wrap"
+                sx={{
+                  gap: 2, // Espacio entre los hijos
+                  flexDirection: { xs: 'column', sm: 'row' }, // Cambia la dirección en pantallas pequeñas
+                }}
+              >
               <ListItemWrapper>
                 <ListTitle>Nombre</ListTitle>
                 <ListLabel>{client.firstName}</ListLabel>
@@ -58,7 +68,11 @@ const ClientList = ({currentItems}:{currentItems:Clients[]}) =>{
                 <ListLabel>{client.phone_number}</ListLabel>
               </ListItemWrapper>
   
-              <div style={{display: 'flex', flexDirection: 'row', gap: '5px'}}>
+              <Box 
+                display="flex" 
+                flexDirection="row" 
+                gap="5px"
+              >
                 <Button onClick={()=>handleClientForm(client)} style={{background: '#ffc107'}}>
                   <IconButton src="./imgs/update.svg" style={{width: '25px'}}/>
                 </Button>
@@ -68,8 +82,8 @@ const ClientList = ({currentItems}:{currentItems:Clients[]}) =>{
                 <Button onClick={() => toggleAccordion(client.id)} style={{background: '#0d6efd'}}>
                   <IconButton src="./imgs/address-book.svg" style={{width: '25px'}}/>
                 </Button>
-              </div>
-            </div>
+              </Box>
+            </Box>
 
             <AccordionAddress cliendId={client.id} addresses={client.addresses}/>
             

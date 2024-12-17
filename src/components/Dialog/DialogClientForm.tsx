@@ -226,7 +226,11 @@ export const DialogClientForm = () => {
                     <Grid container spacing={2}>
                         {formData.addresses.map((address, index) => (
                             <Grid size={{ lg: 12 }} key={index}>
-                                <div style={{ display: 'flex', width: '100%' }}>
+                                <Box 
+                                    display="flex" 
+                                    flexDirection="row" 
+                                    gap="5px"
+                                >
                                     <Grid size={{ lg: 6 }}>
                                         <TextField
                                             fullWidth
@@ -235,8 +239,6 @@ export const DialogClientForm = () => {
                                             value={address.street_address}
                                             onChange={(e) => handleAddressChange(index, e)}
                                             placeholder="Calle"
-                                            // error={!!errors.addresses[index]}
-                                            // helperText={errors.addresses[index]}
                                         />
                                     </Grid>
                                     <Grid size={{ lg: 6 }}>
@@ -284,7 +286,7 @@ export const DialogClientForm = () => {
                                     <Button onClick={() => removeAddress(index)} style={{ background: '#dc3545' }}>
                                         <IconButton src="./imgs/trash.svg" style={{ width: '25px' }} />
                                     </Button>
-                                </div>
+                                </Box>
                             </Grid>
                         ))}
                         <Grid size={{ xs: 12 }}>
